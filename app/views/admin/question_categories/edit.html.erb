@@ -2,7 +2,7 @@
   <%= javascript_include_tag 'jquery.scrollTo-min' %>
   <%= stylesheet_link_tag 'spree_faq' %>
 <% end %>
-<%= form_for @question_category, :url => object_path do |f| %>
+<%= form_for([:admin, @question_category]) do |f| %>
   <%= render "shared/error_messages", :target => f.object %>
   <%= javascript_tag do %>
      var new_question_html = '<%= generate_template(f, :questions) %>';
@@ -29,6 +29,12 @@
           <%= f.label :name, t("category_name") %> <span class="required">*</span><br />
           <%= f.text_field :name, :class => 'fullwidth title'  %>  
           <%= f.error_message_on :name %>
+      <% end %>
+      
+      <%= f.field_container :locale do %>
+          <%= f.label :locale, t("region") %><br />
+          <%= f.select :locale, I18n.available_locales.map { |l| [t(l), l] } %>  
+          <%= f.error_message_on :locale %>
       <% end %>
 
       <div id="questions">
