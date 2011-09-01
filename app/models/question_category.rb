@@ -7,6 +7,4 @@ class QuestionCategory < ActiveRecord::Base
 
   accepts_nested_attributes_for :questions, :allow_destroy => true
   
-  scope :locale, lambda { |locale| where(:locale => locale) }
-  
 end
