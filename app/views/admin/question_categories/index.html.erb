@@ -15,6 +15,7 @@
   <thead data-hook="admin_question_categories_index_headers">
     <th><%= t("category") %></td>
     <th><%= t("questions") %></td>
+    <th><%= t("region") %></td>
     <th data-hook="admin_question_categories_header_actions"></th>
   </tr>
   <thead>
@@ -23,6 +24,7 @@
     <%- locals = {:category => category} %>
     <td><%= h category.name %></td>
     <td><%= category.questions.count %></td>
+    <td><%= t(category.locale) %></td>
     <td class="actions" data-hook="admin_question_categories_index_row_actions">
       <%= link_to_edit category %>&nbsp;
       <%= link_to_delete category %>

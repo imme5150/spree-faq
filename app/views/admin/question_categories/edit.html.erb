@@ -31,6 +31,12 @@
           <%= f.error_message_on :name %>
       <% end %>
       
+      <%= f.field_container :locale do %>
+          <%= f.label :locale, t("region") %><br />
+          <%= f.select :locale, I18n.available_locales.map { |l| [t(l), l] } %>  
+          <%= f.error_message_on :locale %>
+      <% end %>
+
       <div id="questions">
         <h2>Questions</h2>
         <%= link_to_with_icon 'add', t('add_question'), '#', :id => 'new_question_link' %>
