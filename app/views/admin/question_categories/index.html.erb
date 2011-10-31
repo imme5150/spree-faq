@@ -11,25 +11,48 @@
 <div id="new_question_category" data-hook></div>
 
 <h1><%= t("question_categories") %></h1>
-<table class="index">
-  <thead data-hook="admin_question_categories_index_headers">
+<table id="question_categories" class="index">
+  <tr data-hook="question_categories_header">
     <th><%= t("category") %></td>
     <th><%= t("questions") %></td>
     <th><%= t("region") %></td>
-    <th data-hook="admin_question_categories_header_actions"></th>
+    <th data-hook="question_categories_header_actions"></th>
   </tr>
-  <thead>
 <% @question_categories.each do |category| %>
-  <tr id="<%= dom_id category %>" data-hook="admin_question_categories_index_rows"> 
+  <tr id="<%= dom_id category %>" data-hook="question_categories_rows"> 
     <%- locals = {:category => category} %>
-    <td><%= h category.name %></td>
+    <td><span class="handle"></span> <%= h category.name %></td>
     <td><%= category.questions.count %></td>
     <td><%= t(category.locale) %></td>
-    <td class="actions" data-hook="admin_question_categories_index_row_actions">
+    <td class="actions" data-hook="question_categories_row_actions">
       <%= link_to_edit category %>&nbsp;
       <%= link_to_delete category %>
     </td>
   </tr>
 <% end %> 
-  </tbody>
 </table>
+
+<script type="text/javascript" charset="utf-8">
+  $('#question_categories').ready(function(){
+    $('#question_categories tbody').sortable(
+      {
+        handle: '.handle',
+        update: function(event, ui) {
+          $("#progress").show();
+          var positions = {};
+          var reg = /(\w+_?)+_(\d+)/;
+          $.each($('#question_categories tbody tr'), function(position, obj){
+            var parts = reg.exec($(obj).attr('id'));
+            if (parts) positions['positions['+parts[2]+']'] = position;
+          });
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            url: 'question_categories/update_positions',
+            data: positions,
+            success: function(data){ $("#progress").hide(); }
+          });
+        }
+      });
+  });
+</script>
