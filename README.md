@@ -16,7 +16,7 @@ Installation
 
 3) install it:
 
-`rails generate spree_faq:install`
+`rake spree_faq:install`
 
 3) migrate your database:
 

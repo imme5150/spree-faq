@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+Spree::Core::Engine.routes.prepend do
   match :faq, :to => 'faqs#index', :as => 'faq'
   match '/faq/:category', :to => 'faqs#show', :as => 'faq_category'
 
