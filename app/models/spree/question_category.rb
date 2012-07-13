@@ -1,6 +1,7 @@
 module Spree
   class QuestionCategory < ActiveRecord::Base
-    acts_as_list 
+    acts_as_list
+    default_scope :order => "position ASC"
     
     attr_accessible :name, :locale, :questions_attributes
 
