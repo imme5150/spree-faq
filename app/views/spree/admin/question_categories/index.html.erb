@@ -15,7 +15,6 @@
   <tr data-hook="question_categories_header">
     <th><%= t("category") %></td>
     <th><%= t("questions") %></td>
-    <th><%= t("region") %></td>
     <th data-hook="question_categories_header_actions"></th>
   </tr>
 <% @question_categories.each do |category| %>
@@ -23,7 +22,6 @@
     <%- locals = {:category => category} %>
     <td><span class="handle"></span> <%= h category.name %></td>
     <td><%= category.questions.count %></td>
-    <td><%= t(category.locale) %></td>
     <td class="actions" data-hook="question_categories_row_actions">
       <%= link_to_edit category %>&nbsp;
       <%= link_to_delete category %>
