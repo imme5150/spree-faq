@@ -6,8 +6,6 @@
   <%= render "spree/shared/error_messages", :target => f.object %>
   <%= javascript_tag do %>
      var new_question_html = '<%= generate_template(f, :questions) %>';
-     <% editor_config = Spree.const_get('EditorConfiguration') %>
-     var wym_enabled = <%= editor_config && (conf = editor_config.new)[:enabled] && conf[:ids].split.include?('faq_answer') ? 'true' : 'false' %>;
 
      jQuery(document).ready(function($) {
        var wym_options = {
@@ -17,11 +15,7 @@
           updateEvent: 'submit',
           jQueryPath: 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
         };
-       
-        if (wym_enabled && jQuery.isFunction(jQuery.fn.wymeditor)) {
-          $('.question textarea').wymeditor(wym_options);
-        }
-       
+
         $('#new_question_link').click(function() {
           $('#questions').append(new_question_html.replace(/NEW_RECORD/g, $('#questions .question').size()));
           $('#questions .question:last .remove').click(function() {
@@ -29,10 +23,6 @@
           });
           $.scrollTo(jQuery('#questions .question:last'), 800);
           $('.question:last input:first').focus();
-          
-          if (wym_enabled && jQuery.isFunction(jQuery.fn.wymeditor)) {
-            $('.question:last textarea').wymeditor(wym_options);
-          }
         });
         $('#questions .remove').click(function() { 
           $(this).parent('.question').children(':hidden[id$=delete]').val(1);
